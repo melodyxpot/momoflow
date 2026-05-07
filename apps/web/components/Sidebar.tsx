@@ -56,7 +56,7 @@ export function Sidebar() {
           <span className="text-xs text-default-400">Theme</span>
           <ThemeSwitch />
         </div>
-        <Button size="sm" variant="flat" color="danger" onPress={logout}>
+        <Button size="sm" variant="danger" onPress={logout}>
           Sign out
         </Button>
       </div>

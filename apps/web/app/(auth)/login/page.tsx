@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input } from "@heroui/react";
+import { Button, Input, Label, TextField, toast } from "@heroui/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,7 +9,6 @@ import type { AuthUser } from "@momoflow/lib";
 
 export default function LoginPage() {
   const router = useRouter();
-  const toast = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,11 +22,12 @@ export default function LoginPage() {
         password,
       });
       auth.set(out.token);
-      console.log(`Welcome back, ${out.user.name}!`);
+      toast.success(`Welcome back, ${out.user.name}!`);
       router.replace("/dashboard");
     } catch (err) {
       const message = err instanceof ApiError ? err.message : "Login failed";
-      console.error("Sign in failed:", message);
+      console.error("Sign up failed:", message);
+      toast.danger("Sign in failed. Please try again");
     } finally {
       setLoading(false);
     }
@@ -39,23 +39,27 @@ export default function LoginPage() {
       <p className="mt-1 text-sm text-default-500">Welcome back to MomoFlow.</p>
 
       <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
-        <Input
-          type="email"
-          label="Email"
-          value={email}
-          onValueChange={setEmail}
-          isRequired
-          autoComplete="email"
-        />
-        <Input
-          type="password"
-          label="Password"
-          value={password}
-          onValueChange={setPassword}
-          isRequired
-          autoComplete="current-password"
-        />
-        <Button type="submit" color="primary" isLoading={loading}>
+        <TextField isRequired>
+          <Label>Email</Label>
+          <Input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.currentTarget.value)}
+            autoComplete="email"
+          />
+        </TextField>
+        <TextField isRequired>
+          <Label htmlFor="password">Password</Label>
+          <Input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.currentTarget.value)}
+            autoComplete="current-password"
+          />
+        </TextField>
+        <Button type="submit" variant="primary" isPending={loading}>
           Sign in
         </Button>
       </form>

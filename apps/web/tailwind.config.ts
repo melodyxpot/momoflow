@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import { heroui } from "@heroui/react";
 import { createRequire } from "node:module";
 import path from "node:path";
 
@@ -31,22 +30,6 @@ const config: Config = {
     },
   },
   darkMode: "class",
-  plugins: [
-    heroui({
-      themes: {
-        light: {
-          colors: {
-            primary: { DEFAULT: "#6d28d9", foreground: "#ffffff" },
-          },
-        },
-        dark: {
-          colors: {
-            primary: { DEFAULT: "#a78bfa", foreground: "#0b0b14" },
-          },
-        },
-      },
-    }),
-  ],
 };
 
 export default config;

@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Button, Chip } from "@heroui/react";
+import Link from "next/link"
 
 export default function LandingPage() {
   return (
@@ -11,22 +11,26 @@ export default function LandingPage() {
           momo<span className="text-primary">flow</span>
         </Link>
         <nav className="flex items-center gap-2">
-          <Button as={Link} href="/login" variant="light" size="sm">
-            Sign in
-          </Button>
-          <Button as={Link} href="/register" color="primary" size="sm">
-            Get started
-          </Button>
+          <Link href="/login">
+            <Button variant="tertiary" size="sm">
+              Sign in
+            </Button>
+          </Link>
+          <Link href="/register">
+            <Button variant="primary" size="sm">
+              Get started
+            </Button>
+          </Link>
         </nav>
       </header>
 
       <section className="mx-auto max-w-4xl px-6 py-20 text-center sm:py-32">
-        <Chip size="sm" color="primary" variant="flat" className="mb-6">
+        <Chip size="sm" variant="tertiary" className="mb-6">
           Production-ready · Redis-cached redirects
         </Chip>
         <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-6xl">
           Smart short links that{" "}
-          <span className="bg-gradient-to-br from-primary to-cyan-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-br from-primary to-cyan-400 bg-clip-text text-transparent">
             route, track, and convert
           </span>
         </h1>
@@ -35,12 +39,16 @@ export default function LandingPage() {
           passwords, and watch clicks roll in — all behind a sub-50ms redirect engine.
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
-          <Button as={Link} href="/register" color="primary" size="lg">
-            Start for free
-          </Button>
-          <Button as={Link} href="/login" variant="bordered" size="lg">
-            Sign in
-          </Button>
+          <Link href="/register">
+            <Button variant="primary" size="lg">
+              Start for free
+            </Button>
+          </Link>
+          <Link href="/login">
+            <Button variant="secondary" size="lg">
+              Sign in
+            </Button>
+          </Link>
         </div>
       </section>
 

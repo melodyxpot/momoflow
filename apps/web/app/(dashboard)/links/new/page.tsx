@@ -5,11 +5,13 @@ import {
   Card,
   Input,
   TextArea,
+  TextField,
 } from "@heroui/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { CopyButton, PageHeader, QRCodeBlock } from "@momoflow/ui";
 import { ApiError, api } from "@/lib/api";
+import { Label } from "recharts";
+import Link from "next/link";
 
 interface CreateResponse {
   id: string;
@@ -19,7 +21,6 @@ interface CreateResponse {
 }
 
 export default function NewLinkPage() {
-  const router = useRouter();
   const [targetUrl, setTargetUrl] = useState("");
   const [customCode, setCustomCode] = useState("");
   const [title, setTitle] = useState("");
@@ -66,14 +67,14 @@ export default function NewLinkPage() {
           <div className="flex flex-col items-center gap-3 sm:flex-row">
             <QRCodeBlock value={created.shortUrl} />
             <div className="flex flex-1 flex-col gap-2">
+              <Link href={`/links/${created.id}`}>
                 <Button
-                  color="primary"
-                  onPress={() => router.push(`/links/${created.id}`)}
+                  variant="primary"
                 >
                   View analytics
                 </Button>
+              </Link>
                 <Button
-                  variant="flat"
                   onPress={() => {
                     setCreated(null);
                     setTargetUrl("");
@@ -91,45 +92,54 @@ export default function NewLinkPage() {
       ) : (
         <Card>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <TextField isRequired>
+              <Label name="url">Destination URL</Label>
               <Input
                 type="url"
-                label="Destination URL"
+                name="url"
                 placeholder="https://example.com/very/long/path"
                 value={targetUrl}
-                onValueChange={setTargetUrl}
-                isRequired
+                onChange={(e) => setTargetUrl(e.currentTarget.value)}
               />
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            </TextField>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <TextField>
+                <Label>Custom alias (optional)</Label>
                 <Input
-                  label="Custom alias (optional)"
                   placeholder="my-promo"
                   value={customCode}
-                  onValueChange={setCustomCode}
+                  onChange={(e) => setCustomCode(e.currentTarget.value)}
                 />
+              </TextField>
+              <TextField>
+                <Label>Expires at (optional)</Label>
                 <Input
                   type="datetime-local"
-                  label="Expires at (optional)"
                   value={expiresAt}
-                  onValueChange={setExpiresAt}
+                  onChange={(e) => setExpiresAt(e.currentTarget.value)}
                 />
-              </div>
+              </TextField>
+            </div>
+            <TextField>
+              <Label>Title (optional)</Label>
               <Input
-                label="Title (optional)"
                 placeholder="Internal name for this link"
                 value={title}
-                onValueChange={setTitle}
+                onChange={e => setTitle(e.currentTarget.value)}
               />
+            </TextField>
+            <TextField>
+              <Label>Description (optional)</Label>
               <TextArea
-                label="Description (optional)"
                 value={description}
-                onValueChange={setDescription}
-                minRows={2}
+                onChange={(e) => setDescription(e.currentTarget.value)}
+                rows={2}
               />
-              <Button type="submit" color="primary" isLoading={loading}>
-                Shorten URL
-              </Button>
-            </form>
-          </Card>
+            </TextField>
+            <Button type="submit" variant="primary" isPending={loading}>
+              Shorten URL
+            </Button>
+          </form>
         </Card>
       )}
     </div>

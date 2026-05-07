@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input, Label, TextField, toast } from "@heroui/react";
+import { Button, Description, Input, Label, TextField, toast } from "@heroui/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -24,11 +24,12 @@ export default function RegisterPage() {
         password,
       });
       auth.set(out.token);
-      console.log(`Welcome, ${out.user.name}!`);
+      toast.success(`Welcome, ${out.user.name}!`);
       router.replace("/dashboard");
     } catch (err) {
       const message = err instanceof ApiError ? err.message : "Registration failed";
       console.error("Sign up failed:", message);
+      toast.danger("Sign up failed. Please try again");
     } finally {
       setLoading(false);
     }
@@ -43,6 +44,7 @@ export default function RegisterPage() {
         <TextField isRequired>
           <Label htmlFor="name">Name</Label>
           <Input
+            name="name"
             value={name}
             onChange={(e) => setName(e.currentTarget.value)}
             autoComplete="name"
@@ -50,25 +52,27 @@ export default function RegisterPage() {
         </TextField>
         
         <TextField isRequired>
+          <Label htmlFor="email">Email</Label>
           <Input
             type="email"
-            label="Email"
+            name='email'
             value={email}
             onChange={(e) => setEmail(e.currentTarget.value)}
-            isRequired
             autoComplete="email"
           />
         </TextField>
-        <Input
-          type="password"
-          label="Password"
-          value={password}
-          onChange={(e) => setPassword(e.currentTarget.value)}
-          isRequired
-          autoComplete="new-password"
-          description="Minimum 8 characters"
-        />
-        <Button type="submit" color="primary" isLoading={loading}>
+
+        <TextField isRequired>
+          <Label htmlFor="password">Password</Label>
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.currentTarget.value)}
+            autoComplete="new-password"
+          />
+          <Description>Minimum 8 characters</Description>
+        </TextField>
+        <Button type="submit" variant="primary" isPending={loading}>
           Create account
         </Button>
       </form>

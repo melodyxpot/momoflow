@@ -22,7 +22,7 @@ export function StatCard({ label, value, hint, trend }: StatCardProps) {
         : "text-default-500";
 
   return (
-    <Card shadow="sm" radius="lg" className="h-full gap-2">
+    <Card className="h-full gap-2 shadow-sm rounded-lg">
       <p className="text-xs uppercase tracking-wide text-default-500">{label}</p>
       <div className="flex items-end justify-between gap-3">
         <span className="text-3xl font-semibold tabular-nums">{value}</span>

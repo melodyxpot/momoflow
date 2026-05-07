@@ -30,9 +30,9 @@ export default function OverviewPage() {
         title="Overview"
         description="Your shortlinks at a glance."
         actions={
-          <Button as={Link} href="/links/new" color="primary">
+          <Link href="/links/new" color="primary">
             + Create link
-          </Button>
+          </Link>
         }
       />
 
@@ -55,9 +55,9 @@ export default function OverviewPage() {
                 title="No clicks yet"
                 description="Create a link and share it to start tracking activity."
                 action={
-                  <Button as={Link} href="/links/new" color="primary" size="sm">
+                  <Link href="/links/new" color="primary">
                     Create your first link
-                  </Button>
+                  </Link>
                 }
               />
             ) : (

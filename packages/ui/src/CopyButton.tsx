@@ -25,8 +25,7 @@ export function CopyButton({ value, label = "Copy", size = "sm" }: CopyButtonPro
   return (
     <Button
       size={size}
-      variant={copied ? "solid" : "flat"}
-      color={copied ? "success" : "primary"}
+      variant={copied ? "primary" : "tertiary"}
       onPress={handleCopy}
     >
       {copied ? "Copied!" : label}

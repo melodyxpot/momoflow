@@ -2,7 +2,7 @@
 
 import useSWR from "swr";
 import { useParams } from "next/navigation";
-import { Card, Spinner, Chip, Button } from "@heroui/react";
+import { Card, Spinner, Chip } from "@heroui/react";
 import {
   Bar,
   BarChart,
@@ -15,6 +15,7 @@ import {
 import { CopyButton, PageHeader, QRCodeBlock, StatCard } from "@momoflow/ui";
 import type { LinkStats } from "@momoflow/lib";
 import { fetcher } from "@/lib/swr";
+import Link from "next/link";
 
 interface LinkDetail {
   id: string;
@@ -57,9 +58,9 @@ export default function LinkDetailPage() {
         actions={
           <>
             <CopyButton value={link.shortUrl} />
-            <Button as="a" href={link.shortUrl} target="_blank" variant="flat">
+            <Link href={link.shortUrl} target="_blank">
               Open
-            </Button>
+            </Link>
           </>
         }
       />
@@ -69,11 +70,11 @@ export default function LinkDetailPage() {
           <code className="text-lg font-medium text-primary">{link.shortUrl}</code>
           <p className="truncate text-sm text-default-500">{link.targetUrl}</p>
           <div className="mt-2 flex gap-2">
-            <Chip size="sm" color={link.enabled ? "success" : "default"} variant="flat">
+            <Chip size="sm" color={link.enabled ? "success" : "default"}>
               {link.enabled ? "Active" : "Disabled"}
             </Chip>
             {link.expiresAt && (
-              <Chip size="sm" color="warning" variant="flat">
+              <Chip size="sm" color="warning">
                 Expires {new Date(link.expiresAt).toLocaleDateString()}
               </Chip>
             )}

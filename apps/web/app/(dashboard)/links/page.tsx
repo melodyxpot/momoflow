@@ -62,17 +62,18 @@ export default function LinksPage() {
         title="Links"
         description="Manage your shortened URLs."
         actions={
-          <Button as={Link} href="/links/new" color="primary">
-            + New link
-          </Button>
+          <Link href="/links/new">
+            <Button variant="primary">
+              + New link
+            </Button>
+          </Link>
         }
       />
 
       <Input
         placeholder="Search by code, URL, or title…"
         value={search}
-        onValueChange={setSearch}
-        size="sm"
+        onChange={e => setSearch(e.currentTarget.value)}
         className="max-w-md"
       />
 
@@ -85,20 +86,22 @@ export default function LinksPage() {
           title="No links yet"
           description="Create your first short link to get started."
           action={
-            <Button as={Link} href="/links/new" color="primary" size="sm">
-              Create link
-            </Button>
+            <Link href="/links/new">
+              <Button variant="primary" size="sm">
+                Create link
+              </Button>
+            </Link>
           }
         />
       ) : (
         <div className="rounded-2xl border border-default-200 bg-content1">
-          <Table removeWrapper aria-label="Links">
+          <Table aria-label="Links">
             <TableHeader>
               <TableColumn>SHORT URL</TableColumn>
               <TableColumn>TARGET</TableColumn>
               <TableColumn>STATUS</TableColumn>
               <TableColumn>CLICKS</TableColumn>
-              <TableColumn align="end">ACTIONS</TableColumn>
+              <TableColumn>ACTIONS</TableColumn>
             </TableHeader>
             <TableBody>
               {data.items.map((row) => (
@@ -118,7 +121,7 @@ export default function LinksPage() {
                     <Chip
                       size="sm"
                       color={row.enabled ? "success" : "default"}
-                      variant="flat"
+                      variant="tertiary"
                     >
                       {row.enabled ? "Active" : "Disabled"}
                     </Chip>
@@ -132,8 +135,7 @@ export default function LinksPage() {
                       <CopyButton value={row.shortUrl} />
                       <Button
                         size="sm"
-                        variant="flat"
-                        color="danger"
+                        variant="danger-soft"
                         onPress={() => handleDelete(row.id)}
                       >
                         Delete

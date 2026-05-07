@@ -18,10 +18,10 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@heroui/react": "^2.4.6",
+    "@heroui/react": "^3.0.3",
+    "clsx": "^2.1.1",
     "framer-motion": "^11.0.0",
-    "qrcode.react": "^3.1.0",
-    "clsx": "^2.1.1"
+    "qrcode.react": "^3.1.0"
   },
   "devDependencies": {
     "@momoflow/config": "workspace:*",

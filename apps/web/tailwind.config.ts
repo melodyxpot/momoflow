@@ -5,11 +5,14 @@ import path from "node:path";
 
 const require = createRequire(import.meta.url);
 
-// Resolve the actual on-disk location of the HeroUI theme package.
-// This works regardless of pnpm/yarn hoisting in a Turborepo monorepo.
-const heroUiThemePath = path.join(
-  path.dirname(require.resolve("@heroui/theme/package.json")),
-  "dist/**/*.{js,ts,jsx,tsx}"
+// Resolve where any @heroui/* package lives on disk, then scan the whole
+// @heroui directory. This is the only reliable approach in a Turborepo +
+// pnpm monorepo because individual components (input, dropdown, modal, …)
+// each contain their own tailwind-variants class strings, not just the
+// @heroui/theme package.
+const heroUiRoot = path.resolve(
+  path.dirname(require.resolve("@heroui/react/package.json")),
+  ".."
 );
 
 const config: Config = {
@@ -18,7 +21,7 @@ const config: Config = {
     "./components/**/*.{ts,tsx,mdx}",
     "./lib/**/*.{ts,tsx}",
     "../../packages/ui/src/**/*.{ts,tsx}",
-    heroUiThemePath,
+    `${heroUiRoot}/**/dist/**/*.{js,mjs,cjs}`,
   ],
   theme: {
     extend: {

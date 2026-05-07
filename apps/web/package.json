@@ -6,19 +6,20 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
-    "lint": "next lint",
+    "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf .next .turbo"
   },
   "dependencies": {
-    "@heroui/react": "^2.4.6",
+    "@heroui/react": "^3.0.3",
+    "@heroui/styles": "^3.0.3",
     "@momoflow/lib": "workspace:*",
     "@momoflow/ui": "workspace:*",
     "framer-motion": "^11.0.0",
-    "next": "^14.2.3",
+    "next": "16.2.5",
     "next-themes": "^0.3.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
     "recharts": "^2.12.6",
     "swr": "^2.2.5",
     "zod": "^3.23.4"
@@ -26,11 +27,19 @@
   "devDependencies": {
     "@momoflow/config": "workspace:*",
     "@types/node": "^20.12.7",
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
     "autoprefixer": "^10.4.19",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "16.2.5",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.2.14",
+      "@types/react-dom": "19.2.3"
+    }
   }
 }

@@ -3,10 +3,8 @@
 import {
   Button,
   Card,
-  CardBody,
   Input,
-  Textarea,
-  addToast,
+  TextArea,
 } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -42,10 +40,10 @@ export default function NewLinkPage() {
         expiresAt: expiresAt ? new Date(expiresAt).toISOString() : undefined,
       });
       setCreated(out);
-      addToast({ title: "Short link created!", color: "success" });
+      console.log("Short link created!");
     } catch (err) {
       const message = err instanceof ApiError ? err.message : "Failed to create";
-      addToast({ title: "Could not create link", description: message, color: "danger" });
+      console.error("Could not create link:", message);
     } finally {
       setLoading(false);
     }
@@ -59,16 +57,15 @@ export default function NewLinkPage() {
       />
 
       {created ? (
-        <Card>
-          <CardBody className="gap-4">
-            <p className="text-sm text-default-500">Your short link is ready 🎉</p>
-            <div className="flex items-center justify-between gap-3 rounded-xl bg-default-100 px-4 py-3">
-              <code className="truncate text-lg font-medium">{created.shortUrl}</code>
-              <CopyButton value={created.shortUrl} size="md" />
-            </div>
-            <div className="flex flex-col items-center gap-3 sm:flex-row">
-              <QRCodeBlock value={created.shortUrl} />
-              <div className="flex flex-1 flex-col gap-2">
+        <Card className="gap-4">
+          <p className="text-sm text-default-500">Your short link is ready 🎉</p>
+          <div className="flex items-center justify-between gap-3 rounded-xl bg-default-100 px-4 py-3">
+            <code className="truncate text-lg font-medium">{created.shortUrl}</code>
+            <CopyButton value={created.shortUrl} size="md" />
+          </div>
+          <div className="flex flex-col items-center gap-3 sm:flex-row">
+            <QRCodeBlock value={created.shortUrl} />
+            <div className="flex flex-1 flex-col gap-2">
                 <Button
                   color="primary"
                   onPress={() => router.push(`/links/${created.id}`)}
@@ -90,12 +87,10 @@ export default function NewLinkPage() {
                 </Button>
               </div>
             </div>
-          </CardBody>
-        </Card>
+          </Card>
       ) : (
         <Card>
-          <CardBody>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <Input
                 type="url"
                 label="Destination URL"
@@ -124,7 +119,7 @@ export default function NewLinkPage() {
                 value={title}
                 onValueChange={setTitle}
               />
-              <Textarea
+              <TextArea
                 label="Description (optional)"
                 value={description}
                 onValueChange={setDescription}
@@ -134,7 +129,7 @@ export default function NewLinkPage() {
                 Shorten URL
               </Button>
             </form>
-          </CardBody>
+          </Card>
         </Card>
       )}
     </div>

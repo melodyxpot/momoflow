@@ -14,7 +14,6 @@ import {
   TableHeader,
   TableRow,
   Chip,
-  addToast,
 } from "@heroui/react";
 import { CopyButton, EmptyState, PageHeader } from "@momoflow/ui";
 import { ApiError, api } from "@/lib/api";
@@ -49,11 +48,11 @@ export default function LinksPage() {
     if (!confirm("Delete this link? This cannot be undone.")) return;
     try {
       await api.del(`/api/links/${id}`);
-      addToast({ title: "Link deleted", color: "success" });
+      console.log("Link deleted");
       mutate(key);
     } catch (err) {
       const message = err instanceof ApiError ? err.message : "Delete failed";
-      addToast({ title: "Delete failed", description: message, color: "danger" });
+      console.error("Delete failed:", message);
     }
   }
 

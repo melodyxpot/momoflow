@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input, addToast } from "@heroui/react";
+import { Button, Input } from "@heroui/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import type { AuthUser } from "@momoflow/lib";
 
 export default function LoginPage() {
   const router = useRouter();
+  const toast = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,11 +23,11 @@ export default function LoginPage() {
         password,
       });
       auth.set(out.token);
-      addToast({ title: `Welcome back, ${out.user.name}!`, color: "success" });
+      console.log(`Welcome back, ${out.user.name}!`);
       router.replace("/dashboard");
     } catch (err) {
       const message = err instanceof ApiError ? err.message : "Login failed";
-      addToast({ title: "Sign in failed", description: message, color: "danger" });
+      console.error("Sign in failed:", message);
     } finally {
       setLoading(false);
     }

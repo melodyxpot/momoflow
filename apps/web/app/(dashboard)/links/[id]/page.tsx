@@ -2,7 +2,7 @@
 
 import useSWR from "swr";
 import { useParams } from "next/navigation";
-import { Card, CardBody, Spinner, Chip, Button } from "@heroui/react";
+import { Card, Spinner, Chip, Button } from "@heroui/react";
 import {
   Bar,
   BarChart,
@@ -64,24 +64,22 @@ export default function LinkDetailPage() {
         }
       />
 
-      <Card>
-        <CardBody className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-col gap-1">
-            <code className="text-lg font-medium text-primary">{link.shortUrl}</code>
-            <p className="truncate text-sm text-default-500">{link.targetUrl}</p>
-            <div className="mt-2 flex gap-2">
-              <Chip size="sm" color={link.enabled ? "success" : "default"} variant="flat">
-                {link.enabled ? "Active" : "Disabled"}
+      <Card className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-1">
+          <code className="text-lg font-medium text-primary">{link.shortUrl}</code>
+          <p className="truncate text-sm text-default-500">{link.targetUrl}</p>
+          <div className="mt-2 flex gap-2">
+            <Chip size="sm" color={link.enabled ? "success" : "default"} variant="flat">
+              {link.enabled ? "Active" : "Disabled"}
+            </Chip>
+            {link.expiresAt && (
+              <Chip size="sm" color="warning" variant="flat">
+                Expires {new Date(link.expiresAt).toLocaleDateString()}
               </Chip>
-              {link.expiresAt && (
-                <Chip size="sm" color="warning" variant="flat">
-                  Expires {new Date(link.expiresAt).toLocaleDateString()}
-                </Chip>
-              )}
-            </div>
+            )}
           </div>
-          <QRCodeBlock value={link.shortUrl} size={120} />
-        </CardBody>
+        </div>
+        <QRCodeBlock value={link.shortUrl} size={120} />
       </Card>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -95,20 +93,18 @@ export default function LinkDetailPage() {
       </div>
 
       <Card>
-        <CardBody>
-          <h3 className="mb-4 text-base font-semibold">Clicks (last 30 days)</h3>
-          <div className="h-64 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={stats.byDay}>
-                <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
-                <XAxis dataKey="date" tick={{ fontSize: 11 }} />
-                <YAxis tick={{ fontSize: 11 }} allowDecimals={false} />
-                <Tooltip cursor={{ fillOpacity: 0.1 }} />
-                <Bar dataKey="clicks" fill="currentColor" className="fill-primary" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </CardBody>
+        <h3 className="mb-4 text-base font-semibold">Clicks (last 30 days)</h3>
+        <div className="h-64 w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={stats.byDay}>
+              <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
+              <XAxis dataKey="date" tick={{ fontSize: 11 }} />
+              <YAxis tick={{ fontSize: 11 }} allowDecimals={false} />
+              <Tooltip cursor={{ fillOpacity: 0.1 }} />
+              <Bar dataKey="clicks" fill="currentColor" className="fill-primary" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </Card>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
@@ -123,21 +119,19 @@ export default function LinkDetailPage() {
 function BreakdownCard({ title, rows }: { title: string; rows: Array<[string, number]> }) {
   return (
     <Card>
-      <CardBody>
-        <h3 className="mb-3 text-base font-semibold">{title}</h3>
-        {rows.length === 0 ? (
-          <p className="text-sm text-default-500">No data yet</p>
-        ) : (
-          <ul className="flex flex-col divide-y divide-default-200 text-sm">
-            {rows.map(([k, v]) => (
-              <li key={k} className="flex items-center justify-between py-2">
-                <span className="truncate pr-3 text-default-600">{k || "direct"}</span>
-                <span className="tabular-nums text-default-500">{v}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </CardBody>
+      <h3 className="mb-3 text-base font-semibold">{title}</h3>
+      {rows.length === 0 ? (
+        <p className="text-sm text-default-500">No data yet</p>
+      ) : (
+        <ul className="flex flex-col divide-y divide-default-200 text-sm">
+          {rows.map(([k, v]) => (
+            <li key={k} className="flex items-center justify-between py-2">
+              <span className="truncate pr-3 text-default-600">{k || "direct"}</span>
+              <span className="tabular-nums text-default-500">{v}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </Card>
   );
 }

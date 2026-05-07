@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input, addToast } from "@heroui/react";
+import { Button, Input, Label, TextField, toast } from "@heroui/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -24,11 +24,11 @@ export default function RegisterPage() {
         password,
       });
       auth.set(out.token);
-      addToast({ title: `Welcome, ${out.user.name}!`, color: "success" });
+      console.log(`Welcome, ${out.user.name}!`);
       router.replace("/dashboard");
     } catch (err) {
       const message = err instanceof ApiError ? err.message : "Registration failed";
-      addToast({ title: "Sign up failed", description: message, color: "danger" });
+      console.error("Sign up failed:", message);
     } finally {
       setLoading(false);
     }
@@ -40,26 +40,30 @@ export default function RegisterPage() {
       <p className="mt-1 text-sm text-default-500">Start shortening links in seconds.</p>
 
       <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
-        <Input
-          label="Name"
-          value={name}
-          onValueChange={setName}
-          isRequired
-          autoComplete="name"
-        />
-        <Input
-          type="email"
-          label="Email"
-          value={email}
-          onValueChange={setEmail}
-          isRequired
-          autoComplete="email"
-        />
+        <TextField isRequired>
+          <Label htmlFor="name">Name</Label>
+          <Input
+            value={name}
+            onChange={(e) => setName(e.currentTarget.value)}
+            autoComplete="name"
+          />
+        </TextField>
+        
+        <TextField isRequired>
+          <Input
+            type="email"
+            label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.currentTarget.value)}
+            isRequired
+            autoComplete="email"
+          />
+        </TextField>
         <Input
           type="password"
           label="Password"
           value={password}
-          onValueChange={setPassword}
+          onChange={(e) => setPassword(e.currentTarget.value)}
           isRequired
           autoComplete="new-password"
           description="Minimum 8 characters"

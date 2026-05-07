@@ -21,10 +21,18 @@ export function createApp(): Express {
   app.set("trust proxy", 1);
 
   app.use(helmet({ contentSecurityPolicy: false }));
+  const allowedOrigins = env.CORS_ORIGIN.split(",").map((s) => s.trim()).filter(Boolean);
   app.use(
     cors({
-      origin: env.CORS_ORIGIN.split(",").map((s) => s.trim()),
-      credentials: true,
+      origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes("*") || allowedOrigins.includes(origin)) {
+          return callback(null, true);
+        }
+        return callback(new Error("Not allowed by CORS"));
+      },
+      methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
     })
   );
   app.use(compression());

@@ -16,7 +16,7 @@ import {
   updateLink,
 } from "../services/linkService";
 
-const router = Router();
+const router: Router = Router();
 router.use(requireAuth);
 
 const presentLink = (doc: {
@@ -82,7 +82,9 @@ router.get(
   "/:id",
   asyncHandler(async (req, res) => {
     const { user } = req as AuthedRequest;
-    const link = await getLinkById(user.sub, req.params.id);
+    const id = req.params.id;
+    if (!id) return res.status(400).json({ success: false, error: { code: "BAD_REQUEST", message: "Missing id parameter" } });
+    const link = await getLinkById(user.sub, id);
     res.json({ success: true, data: presentLink(link.toObject()) });
   })
 );
@@ -92,7 +94,9 @@ router.patch(
   validateBody(updateLinkSchema),
   asyncHandler(async (req, res) => {
     const { user } = req as AuthedRequest;
-    const link = await updateLink(user.sub, req.params.id, req.body);
+    const id = req.params.id;
+    if (!id) return res.status(400).json({ success: false, error: { code: "BAD_REQUEST", message: "Missing id parameter" } });
+    const link = await updateLink(user.sub, id, req.body);
     res.json({ success: true, data: presentLink(link.toObject()) });
   })
 );
@@ -101,8 +105,10 @@ router.delete(
   "/:id",
   asyncHandler(async (req, res) => {
     const { user } = req as AuthedRequest;
-    await deleteLink(user.sub, req.params.id);
-    res.json({ success: true, data: { id: req.params.id } });
+    const id = req.params.id;
+    if (!id) return res.status(400).json({ success: false, error: { code: "BAD_REQUEST", message: "Missing id parameter" } });
+    await deleteLink(user.sub, id);
+    res.json({ success: true, data: { id } });
   })
 );
 

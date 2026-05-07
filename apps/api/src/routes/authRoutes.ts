@@ -7,7 +7,7 @@ import { login, register } from "../services/authService";
 import { requireAuth, type AuthedRequest } from "../middleware/auth";
 import { UserModel } from "../models/User";
 
-const router = Router();
+const router: Router = Router();
 
 router.post(
   "/register",

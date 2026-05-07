@@ -102,7 +102,7 @@ export async function updateLink(
   if (input.rules) {
     const rules = { ...input.rules };
     if (rules.password) rules.password = await bcrypt.hash(rules.password, 10);
-    link.rules = rules;
+    link.set('rules', rules);
   }
 
   await link.save();

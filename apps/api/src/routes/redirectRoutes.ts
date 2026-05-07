@@ -3,7 +3,7 @@ import { isReservedCode } from "@momoflow/lib";
 import { resolveLink } from "../services/redirectService";
 import { recordClick } from "../services/analyticsService";
 
-const router = Router();
+const router: Router = Router();
 
 function clientIp(req: Request): string {
   const fwd = (req.headers["x-forwarded-for"] as string | undefined)?.split(",")[0]?.trim();

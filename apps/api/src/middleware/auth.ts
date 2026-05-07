@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
+import type { Secret } from "jsonwebtoken";
 import { env } from "../config/env";
 import { HttpError } from "../utils/HttpError";
 import type { UserRole } from "@momoflow/lib";
@@ -15,7 +16,7 @@ export interface AuthedRequest extends Request {
 }
 
 export function signToken(payload: JwtPayload): string {
-  return jwt.sign(payload, env.JWT_SECRET, { expiresIn: env.JWT_EXPIRES_IN });
+  return (sign as any)(payload, env.JWT_SECRET, { expiresIn: env.JWT_EXPIRES_IN });
 }
 
 export function requireAuth(req: Request, _res: Response, next: NextFunction) {
@@ -25,7 +26,7 @@ export function requireAuth(req: Request, _res: Response, next: NextFunction) {
   }
   const token = header.slice("Bearer ".length).trim();
   try {
-    const decoded = jwt.verify(token, env.JWT_SECRET) as JwtPayload;
+    const decoded = (verify as any)(token, env.JWT_SECRET) as JwtPayload;
     (req as AuthedRequest).user = decoded;
     next();
   } catch {

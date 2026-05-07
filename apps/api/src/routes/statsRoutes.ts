@@ -6,17 +6,19 @@ import { getLinkStats } from "../services/analyticsService";
 import { getLinkById } from "../services/linkService";
 import { LinkModel } from "../models/Link";
 
-const router = Router();
+const router: Router = Router();
 router.use(requireAuth);
 
 router.get(
   "/:id",
   asyncHandler(async (req, res) => {
     const { user } = req as AuthedRequest;
+    const id = req.params.id;
+    if (!id) return res.status(400).json({ success: false, error: { code: "BAD_REQUEST", message: "Missing id parameter" } });
     // Ensure ownership before exposing stats
-    await getLinkById(user.sub, req.params.id);
+    await getLinkById(user.sub, id);
     const days = Math.min(365, Math.max(1, Number(req.query.days ?? 30)));
-    const stats = await getLinkStats(req.params.id, days);
+    const stats = await getLinkStats(id, days);
     res.json({ success: true, data: stats });
   })
 );

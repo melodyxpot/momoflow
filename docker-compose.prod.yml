@@ -1,0 +1,98 @@
+version: "3.9"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MomoFlow — single-server production stack
+#
+# Services:
+#   mongo    → database (internal only, no host port exposed)
+#   redis    → cache   (internal only)
+#   api      → Express redirect engine + REST API (internal :4000)
+#   web      → Next.js dashboard (internal :3000)
+#   nginx    → public reverse proxy on :80 / :443 (TLS termination)
+#   certbot  → Let's Encrypt renewal sidecar
+#
+# Public hostnames (configure DNS A-records to this server's IP):
+#   momolink.io      →  short-link redirects + /api/*   (proxied to api)
+#   app.momolink.io  →  dashboard UI                    (proxied to web)
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    networks: [backend]
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"]
+    volumes:
+      - redis_data:/data
+    networks: [backend]
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      MONGODB_URI: mongodb://mongo:27017/momoflow
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      # This URL is embedded into every generated short link.
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-https://momolink.io}
+      CORS_ORIGIN: ${CORS_ORIGIN:-https://app.momolink.io}
+      RATE_LIMIT_WINDOW_MS: ${RATE_LIMIT_WINDOW_MS:-60000}
+      RATE_LIMIT_MAX: ${RATE_LIMIT_MAX:-120}
+    depends_on:
+      - mongo
+      - redis
+    networks: [backend]
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    environment:
+      # Dashboard calls the API through the public domain (same-origin /api on momolink.io).
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://momolink.io}
+      NEXT_PUBLIC_SHORT_DOMAIN: ${NEXT_PUBLIC_SHORT_DOMAIN:-https://momolink.io}
+    depends_on:
+      - api
+    networks: [backend]
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/nginx.prod.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./deploy/letsencrypt:/etc/letsencrypt
+      - ./deploy/certbot-www:/var/www/certbot
+    depends_on:
+      - api
+      - web
+    networks: [backend]
+
+  certbot:
+    image: certbot/certbot:latest
+    restart: unless-stopped
+    volumes:
+      - ./deploy/letsencrypt:/etc/letsencrypt
+      - ./deploy/certbot-www:/var/www/certbot
+    entrypoint: /bin/sh -c "trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --quiet; sleep 12h & wait $${!}; done;"
+
+networks:
+  backend:
+
+volumes:
+  mongo_data:
+  redis_data:

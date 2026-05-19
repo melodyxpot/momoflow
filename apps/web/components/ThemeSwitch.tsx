@@ -26,6 +26,10 @@ export function ThemeSwitch() {
       isSelected={isDark}
       onChange={(selected: boolean) => setTheme(selected ? "dark" : "light")}
       aria-label="Toggle dark mode"
-    />
+    >
+      <Switch.Control>
+        <Switch.Thumb />
+      </Switch.Control>
+    </Switch>
   );
 }

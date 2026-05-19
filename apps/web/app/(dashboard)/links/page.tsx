@@ -7,13 +7,8 @@ import {
   Button,
   Input,
   Spinner,
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableHeader,
-  TableRow,
   Chip,
+  Table,
 } from "@heroui/react";
 import { CopyButton, EmptyState, PageHeader } from "@momoflow/ui";
 import { ApiError, api } from "@/lib/api";
@@ -94,59 +89,61 @@ export default function LinksPage() {
           }
         />
       ) : (
-        <div className="rounded-2xl border border-default-200 bg-content1">
-          <Table aria-label="Links">
-            <TableHeader>
-              <TableColumn>SHORT URL</TableColumn>
-              <TableColumn>TARGET</TableColumn>
-              <TableColumn>STATUS</TableColumn>
-              <TableColumn>CLICKS</TableColumn>
-              <TableColumn>ACTIONS</TableColumn>
-            </TableHeader>
-            <TableBody>
-              {data.items.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>
-                    <Link
-                      href={`/links/${row.id}`}
-                      className="font-medium text-primary hover:underline"
-                    >
-                      {row.shortUrl}
-                    </Link>
-                  </TableCell>
-                  <TableCell className="max-w-[280px] truncate text-default-500">
-                    {row.title || row.targetUrl}
-                  </TableCell>
-                  <TableCell>
-                    <Chip
-                      size="sm"
-                      color={row.enabled ? "success" : "default"}
-                      variant="tertiary"
-                    >
-                      {row.enabled ? "Active" : "Disabled"}
-                    </Chip>
-                  </TableCell>
-                  <TableCell className="tabular-nums">
-                    {row.clicks}{" "}
-                    <span className="text-default-400">/ {row.uniqueClicks}u</span>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <CopyButton value={row.shortUrl} />
-                      <Button
-                        size="sm"
-                        variant="danger-soft"
-                        onPress={() => handleDelete(row.id)}
+        <Table>
+          <Table.ScrollContainer>
+            <Table.Content aria-label="Links">
+              <Table.Header>
+                <Table.Column>SHORT URL</Table.Column>
+                <Table.Column>TARGET</Table.Column>
+                <Table.Column>STATUS</Table.Column>
+                <Table.Column>CLICKS</Table.Column>
+                <Table.Column>ACTIONS</Table.Column>
+              </Table.Header>
+              <Table.Body>
+                {data.items.map((row) => (
+                  <Table.Row key={row.id}>
+                    <Table.Cell>
+                      <Link
+                        href={`/links/${row.id}`}
+                        className="font-medium text-primary hover:underline"
                       >
-                        Delete
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+                        {row.shortUrl}
+                      </Link>
+                    </Table.Cell>
+                    <Table.Cell className="max-w-[280px] truncate text-default-500">
+                      {row.title || row.targetUrl}
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Chip
+                        size="sm"
+                        color={row.enabled ? "success" : "default"}
+                        variant="tertiary"
+                      >
+                        {row.enabled ? "Active" : "Disabled"}
+                      </Chip>
+                    </Table.Cell>
+                    <Table.Cell className="tabular-nums">
+                      {row.clicks}{" "}
+                      <span className="text-default-400">/ {row.uniqueClicks}u</span>
+                    </Table.Cell>
+                    <Table.Cell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <CopyButton value={row.shortUrl} />
+                        <Button
+                          size="sm"
+                          variant="danger-soft"
+                          onPress={() => handleDelete(row.id)}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table.Content>
+          </Table.ScrollContainer>
+        </Table>
       )}
     </div>
   );

@@ -1,5 +1,8 @@
 version: "3.9"
 
+# Dev / local stack. Reads the single root .env file.
+# For production use docker-compose.prod.yml.
+
 services:
   mongo:
     image: mongo:7
@@ -25,14 +28,14 @@ services:
     restart: unless-stopped
     ports:
       - "4000:4000"
+    env_file: .env
     environment:
+      # Point at the containerised stores, overriding any localhost values
+      # the host might have in .env.
       NODE_ENV: production
       PORT: 4000
       MONGODB_URI: mongodb://mongo:27017/momoflow
       REDIS_URL: redis://redis:6379
-      JWT_SECRET: ${JWT_SECRET:-change_me_to_a_long_random_string}
-      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-http://localhost:4000}
-      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
     depends_on:
       - mongo
       - redis
@@ -41,12 +44,13 @@ services:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:4000}
+        NEXT_PUBLIC_SHORT_DOMAIN: ${NEXT_PUBLIC_SHORT_DOMAIN:-http://localhost:4000}
     restart: unless-stopped
     ports:
       - "3000:3000"
-    environment:
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:4000}
-      NEXT_PUBLIC_SHORT_DOMAIN: ${NEXT_PUBLIC_SHORT_DOMAIN:-http://localhost:4000}
+    env_file: .env
     depends_on:
       - api
 

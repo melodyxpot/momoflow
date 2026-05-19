@@ -12,6 +12,7 @@ import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
 import authRoutes from "./routes/authRoutes";
 import linkRoutes from "./routes/linkRoutes";
 import statsRoutes from "./routes/statsRoutes";
+import landingRoutes from "./routes/landingRoutes";
 import redirectRoutes from "./routes/redirectRoutes";
 
 export function createApp(): Express {
@@ -55,6 +56,10 @@ export function createApp(): Express {
   app.use("/api/auth", apiLimiter, authRoutes);
   app.use("/api/links", apiLimiter, linkRoutes);
   app.use("/api/stats", apiLimiter, statsRoutes);
+
+  // Public landing page at exact "/". Mounted before the redirect router
+  // so it doesn't collide with /:code (which only matches /something).
+  app.use("/", landingRoutes);
 
   // Critical hot path: short-link redirect. Mounted last to avoid shadowing /api/*.
   app.use("/", redirectRoutes);

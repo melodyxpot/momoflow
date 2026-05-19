@@ -37,18 +37,14 @@ services:
       context: .
       dockerfile: apps/api/Dockerfile
     restart: unless-stopped
+    env_file: .env
     environment:
+      # Override datastore URLs so they point to the in-network containers
+      # regardless of what's in .env (which is also used by host-side tools).
       NODE_ENV: production
       PORT: 4000
       MONGODB_URI: mongodb://mongo:27017/momoflow
       REDIS_URL: redis://redis:6379
-      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
-      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
-      # This URL is embedded into every generated short link.
-      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-https://momolink.io}
-      CORS_ORIGIN: ${CORS_ORIGIN:-https://app.momolink.io}
-      RATE_LIMIT_WINDOW_MS: ${RATE_LIMIT_WINDOW_MS:-60000}
-      RATE_LIMIT_MAX: ${RATE_LIMIT_MAX:-120}
     depends_on:
       - mongo
       - redis
@@ -58,11 +54,13 @@ services:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
+      args:
+        # NEXT_PUBLIC_* must be available at BUILD time to be baked into
+        # the client bundle. We forward them from the root .env file.
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://momolink.io}
+        NEXT_PUBLIC_SHORT_DOMAIN: ${NEXT_PUBLIC_SHORT_DOMAIN:-https://momolink.io}
     restart: unless-stopped
-    environment:
-      # Dashboard calls the API through the public domain (same-origin /api on momolink.io).
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://momolink.io}
-      NEXT_PUBLIC_SHORT_DOMAIN: ${NEXT_PUBLIC_SHORT_DOMAIN:-https://momolink.io}
+    env_file: .env
     depends_on:
       - api
     networks: [backend]

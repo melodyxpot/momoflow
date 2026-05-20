@@ -10,7 +10,7 @@ import {
   Chip,
   Table,
 } from "@heroui/react";
-import { CopyButton, EmptyState, PageHeader } from "@momoflow/ui";
+import { CopyButton, EmptyState, PageHeader } from "@momolinks/ui";
 import { ApiError, api } from "@/lib/api";
 import { fetcher } from "@/lib/swr";
 

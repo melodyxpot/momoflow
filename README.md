@@ -1,4 +1,4 @@
-# MomoFlow
+# MomoLinks
 
 A production-ready URL shortener and smart redirect platform built as a **Turborepo monorepo**.
 
@@ -30,7 +30,7 @@ A production-ready URL shortener and smart redirect platform built as a **Turbor
 | Database     | MongoDB (Mongoose)                        |
 | Cache        | Redis (ioredis)                           |
 | Auth         | JWT + bcryptjs                            |
-| Validation   | Zod (shared types via `@momoflow/lib`)    |
+| Validation   | Zod (shared types via `@momolinks/lib`)    |
 | Logging      | Winston + Morgan                          |
 | Charts       | Recharts                                  |
 
@@ -39,7 +39,7 @@ A production-ready URL shortener and smart redirect platform built as a **Turbor
 ## 📂 Structure
 
 ```
-momoflow/
+momolinks/
 ├── apps/
 │   ├── api/        # Express backend (REST API + redirect engine)
 │   └── web/        # Next.js dashboard

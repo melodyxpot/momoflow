@@ -1,5 +1,5 @@
 {
-  "name": "@momoflow/api",
+  "name": "@momolinks/api",
   "version": "1.0.0",
   "private": true,
   "main": "dist/server.js",
@@ -12,7 +12,7 @@
     "clean": "rm -rf dist .turbo"
   },
   "dependencies": {
-    "@momoflow/lib": "workspace:*",
+    "@momolinks/lib": "workspace:*",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
@@ -30,7 +30,7 @@
     "zod": "^3.23.4"
   },
   "devDependencies": {
-    "@momoflow/config": "workspace:*",
+    "@momolinks/config": "workspace:*",
     "@types/bcryptjs": "^2.4.6",
     "@types/compression": "^1.7.5",
     "@types/cookie-parser": "^1.4.7",

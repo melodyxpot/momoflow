@@ -1,7 +1,7 @@
 import { createHash } from "crypto";
 import { UAParser } from "ua-parser-js";
 
-export function hashIp(ip: string, salt = "momoflow"): string {
+export function hashIp(ip: string, salt = "momolinks"): string {
   return createHash("sha256").update(`${salt}:${ip}`).digest("hex").slice(0, 32);
 }
 

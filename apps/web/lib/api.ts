@@ -1,9 +1,9 @@
-import type { ApiResponse } from "@momoflow/lib";
+import type { ApiResponse } from "@momolinks/lib";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "") ?? "http://localhost:4000";
 
-const TOKEN_KEY = "momoflow_token";
+const TOKEN_KEY = "momolinks_token";
 
 export const auth = {
   get token(): string | null {

@@ -1,0 +1,54 @@
+{
+  "common": {
+    "brand": "MomoLinks",
+    "signIn": "Giriş yap",
+    "signOut": "Çıkış yap",
+    "signUp": "Başla",
+    "create": "Oluştur",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "loading": "Yükleniyor…",
+    "language": "Dil",
+    "theme": "Tema"
+  },
+  "landing": {
+    "badge": "Üretime hazır · Redis önbellekli yönlendirmeler",
+    "headline1": "Akıllı kısa bağlantılar:",
+    "headline2": "yönlendirir, takip eder, dönüştürür",
+    "subtitle": "Markalı kısa bağlantılar oluşturun; coğrafya / cihaz / A-B varyantına göre yönlendirin, şifreyle koruyun ve tıklamaları gerçek zamanlı izleyin — 50 ms altı bir yönlendirme motoruyla.",
+    "ctaStart": "Ücretsiz başla",
+    "ctaSignIn": "Giriş yap",
+    "feature1Title": "Yıldırım hızında yönlendirme",
+    "feature1Body": "Negatif önbelleğe alma destekli Redis araması, sıcak yolu 50 ms’nin altında tutar.",
+    "feature2Title": "Akıllı yönlendirme",
+    "feature2Body": "Coğrafya, cihaz, ağırlıklı A-B varyantları, son kullanma tarihi ve şifre korumalı bağlantılar.",
+    "feature3Title": "Gerçek zamanlı analitik",
+    "feature3Body": "Ülke, cihaz, yönlendiren ve güne göre bağlantı istatistikleri — asenkron yazılır, asla engellemez."
+  },
+  "nav": {
+    "overview": "Genel bakış",
+    "links": "Bağlantılar",
+    "create": "Oluştur"
+  },
+  "auth": {
+    "loginTitle": "Giriş yap",
+    "loginSubtitle": "MomoLinks’e tekrar hoş geldiniz.",
+    "email": "E-posta",
+    "password": "Şifre",
+    "signInButton": "Giriş yap",
+    "newHere": "Yeni misiniz?",
+    "createAccount": "Hesap oluşturun",
+    "registerTitle": "Hesabınızı oluşturun",
+    "registerSubtitle": "MomoLinks ile saniyeler içinde başlayın.",
+    "name": "Ad",
+    "registerButton": "Hesap oluştur",
+    "passwordHint": "En az 8 karakter",
+    "welcome": "Hoş geldiniz, {name}!",
+    "haveAccount": "Zaten hesabınız var mı?",
+    "signInLink": "Giriş yap",
+    "welcomeBack": "Tekrar hoş geldiniz, {name}!",
+    "loginFailed": "Giriş başarısız. Lütfen tekrar deneyin",
+    "registerFailed": "Kayıt başarısız. Lütfen tekrar deneyin"
+  }
+}

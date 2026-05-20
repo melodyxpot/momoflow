@@ -1,5 +1,5 @@
 {
-  "extends": "@momoflow/config/tsconfig.base.json",
+  "extends": "@momolinks/config/tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",

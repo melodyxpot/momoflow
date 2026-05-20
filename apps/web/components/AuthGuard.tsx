@@ -25,7 +25,7 @@ export function AuthGuard({ children }: { children: ReactNode }) {
 
     // React to logout/login from other tabs.
     const onStorage = (e: StorageEvent) => {
-      if (e.key === "momoflow_token") check();
+      if (e.key === "momolinks_token") check();
     };
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);

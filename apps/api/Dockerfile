@@ -13,7 +13,7 @@ WORKDIR /app
 RUN corepack enable
 COPY --from=deps /app /app
 COPY apps/api ./apps/api
-RUN pnpm --filter @momoflow/api build
+RUN pnpm --filter @momolinks/api build
 
 # --- runtime ---
 FROM node:20-alpine AS runtime

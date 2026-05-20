@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "momoflow-api",
+      name: "momolinks-api",
       script: "dist/server.js",
       cwd: __dirname,
       instances: "max",

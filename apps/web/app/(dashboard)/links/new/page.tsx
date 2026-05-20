@@ -8,7 +8,7 @@ import {
   TextField,
 } from "@heroui/react";
 import { useState } from "react";
-import { CopyButton, PageHeader, QRCodeBlock } from "@momoflow/ui";
+import { CopyButton, PageHeader, QRCodeBlock } from "@momolinks/ui";
 import { ApiError, api } from "@/lib/api";
 import { Label } from "recharts";
 import Link from "next/link";

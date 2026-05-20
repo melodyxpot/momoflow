@@ -1,5 +1,5 @@
 import { Router, type Request, type Response } from "express";
-import { isReservedCode } from "@momoflow/lib";
+import { isReservedCode } from "@momolinks/lib";
 import { resolveLink } from "../services/redirectService";
 import { recordClick } from "../services/analyticsService";
 

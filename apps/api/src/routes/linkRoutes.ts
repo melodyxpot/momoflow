@@ -3,7 +3,7 @@ import {
   buildShortUrl,
   createLinkSchema,
   updateLinkSchema,
-} from "@momoflow/lib";
+} from "@momolinks/lib";
 import { env } from "../config/env";
 import { validateBody } from "../middleware/validate";
 import { asyncHandler } from "../utils/asyncHandler";

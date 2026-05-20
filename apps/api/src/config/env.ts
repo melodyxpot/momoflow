@@ -39,7 +39,7 @@ const schema = z.object({
   RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(60_000),
   RATE_LIMIT_MAX: z.coerce.number().int().positive().default(120),
   // Landing page
-  BRAND_NAME: z.string().default("MomoFlow"),
+  BRAND_NAME: z.string().default("MomoLinks"),
   DASHBOARD_URL: z.string().url().default("http://localhost:3000"),
 });
 

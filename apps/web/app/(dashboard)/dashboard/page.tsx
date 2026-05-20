@@ -3,7 +3,7 @@
 import useSWR from "swr";
 import Link from "next/link";
 import { Spinner } from "@heroui/react";
-import { PageHeader, StatCard, EmptyState } from "@momoflow/ui";
+import { PageHeader, StatCard, EmptyState } from "@momolinks/ui";
 import { fetcher } from "@/lib/swr";
 import { SHORT_DOMAIN } from "@/lib/api";
 

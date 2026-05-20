@@ -1,8 +1,8 @@
 {
-  "name": "momoflow",
+  "name": "momolinks",
   "version": "1.0.0",
   "private": true,
-  "description": "MomoFlow - Production-ready URL shortener and smart redirect platform",
+  "description": "MomoLinks - Production-ready URL shortener and smart redirect platform",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",

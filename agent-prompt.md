@@ -1,4 +1,4 @@
-Build a production-ready URL shortener and smart redirect platform (similar to Cuttly) in C:/Workspace/momoflow using a **Turborepo monorepo architecture**.
+Build a production-ready URL shortener and smart redirect platform (similar to Cuttly) in C:/Workspace/momolinks using a **Turborepo monorepo architecture**.
 
 ---
 

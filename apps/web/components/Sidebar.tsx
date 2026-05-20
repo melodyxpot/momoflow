@@ -3,19 +3,23 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@heroui/react";
-import { cn } from "@momoflow/ui";
+import { useTranslations } from "next-intl";
+import { cn } from "@momolinks/ui";
 import { auth } from "@/lib/api";
 import { ThemeSwitch } from "./ThemeSwitch";
-
-const NAV = [
-  { href: "/dashboard", label: "Overview", icon: "▦" },
-  { href: "/links", label: "Links", icon: "🔗" },
-  { href: "/links/new", label: "Create", icon: "+" },
-];
+import { LocaleSwitcher } from "./LocaleSwitcher";
 
 export function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const t = useTranslations("nav");
+  const tc = useTranslations("common");
+
+  const NAV = [
+    { href: "/dashboard", label: t("overview"), icon: "◎" },
+    { href: "/links", label: t("links"), icon: "🔗" },
+    { href: "/links/new", label: t("create"), icon: "+" },
+  ];
 
   function logout() {
     auth.clear();
@@ -25,7 +29,7 @@ export function Sidebar() {
   return (
     <aside className="sticky top-0 flex h-screen w-60 flex-col border-r border-default-200 bg-content1/60 px-4 py-6 backdrop-blur">
       <Link href="/dashboard" className="mb-8 px-2 text-xl font-bold tracking-tight">
-        momo<span className="text-primary">flow</span>
+        momo<span className="text-primary">links</span>
       </Link>
 
       <nav className="flex flex-1 flex-col gap-1">
@@ -51,13 +55,17 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="mt-auto flex flex-col gap-2 border-t border-default-200 pt-4">
+      <div className="mt-auto flex flex-col gap-3 border-t border-default-200 pt-4">
         <div className="flex items-center justify-between px-2">
-          <span className="text-xs text-default-400">Theme</span>
+          <span className="text-xs text-default-400">{tc("language")}</span>
+          <LocaleSwitcher />
+        </div>
+        <div className="flex items-center justify-between px-2">
+          <span className="text-xs text-default-400">{tc("theme")}</span>
           <ThemeSwitch />
         </div>
         <Button size="sm" variant="danger" onPress={logout}>
-          Sign out
+          {tc("signOut")}
         </Button>
       </div>
     </aside>

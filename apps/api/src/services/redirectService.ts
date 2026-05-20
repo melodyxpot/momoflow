@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import geoip from "geoip-lite";
-import { parseUserAgent, pickWeighted, type LinkRules } from "@momoflow/lib";
+import { parseUserAgent, pickWeighted, type LinkRules } from "@momolinks/lib";
 import {
   redis,
   linkCacheKey,

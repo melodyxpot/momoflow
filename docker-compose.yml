@@ -34,7 +34,7 @@ services:
       # the host might have in .env.
       NODE_ENV: production
       PORT: 4000
-      MONGODB_URI: mongodb://mongo:27017/momoflow
+      MONGODB_URI: mongodb://mongo:27017/momolinks
       REDIS_URL: redis://redis:6379
     depends_on:
       - mongo

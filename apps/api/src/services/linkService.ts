@@ -5,7 +5,7 @@ import {
   sanitizeUrl,
   type CreateLinkInput,
   type UpdateLinkInput,
-} from "@momoflow/lib";
+} from "@momolinks/lib";
 import { LinkModel, type LinkDoc } from "../models/Link";
 import { HttpError } from "../utils/HttpError";
 import { linkCacheKey, redis, LINK_CACHE_TTL, negativeCacheKey } from "../config/redis";

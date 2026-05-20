@@ -4,11 +4,13 @@ import { Button, Input, Label, TextField, toast } from "@heroui/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { ApiError, api, auth } from "@/lib/api";
-import type { AuthUser } from "@momoflow/lib";
+import type { AuthUser } from "@momolinks/lib";
 
 export default function LoginPage() {
   const router = useRouter();
+  const t = useTranslations("auth");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,12 +24,12 @@ export default function LoginPage() {
         password,
       });
       auth.set(out.token);
-      toast.success(`Welcome back, ${out.user.name}!`);
+      toast.success(t("welcomeBack", { name: out.user.name }));
       router.replace("/dashboard");
     } catch (err) {
       const message = err instanceof ApiError ? err.message : "Login failed";
-      console.error("Sign up failed:", message);
-      toast.danger("Sign in failed. Please try again");
+      console.error("Sign in failed:", message);
+      toast.danger(t("loginFailed"));
     } finally {
       setLoading(false);
     }
@@ -35,12 +37,12 @@ export default function LoginPage() {
 
   return (
     <>
-      <h1 className="text-2xl font-semibold">Sign in</h1>
-      <p className="mt-1 text-sm text-default-500">Welcome back to MomoFlow.</p>
+      <h1 className="text-2xl font-semibold">{t("loginTitle")}</h1>
+      <p className="mt-1 text-sm text-default-500">{t("loginSubtitle")}</p>
 
       <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
         <TextField isRequired>
-          <Label>Email</Label>
+          <Label>{t("email")}</Label>
           <Input
             type="email"
             name="email"
@@ -50,7 +52,7 @@ export default function LoginPage() {
           />
         </TextField>
         <TextField isRequired>
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t("password")}</Label>
           <Input
             type="password"
             name="password"
@@ -60,14 +62,14 @@ export default function LoginPage() {
           />
         </TextField>
         <Button type="submit" variant="primary" isPending={loading}>
-          Sign in
+          {t("signInButton")}
         </Button>
       </form>
 
       <p className="mt-6 text-center text-sm text-default-500">
-        New here?{" "}
+        {t("newHere")}{" "}
         <Link href="/register" className="text-primary hover:underline">
-          Create an account
+          {t("createAccount")}
         </Link>
       </p>
     </>

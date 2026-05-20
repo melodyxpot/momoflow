@@ -1,5 +1,5 @@
 {
-  "name": "@momoflow/ui",
+  "name": "@momolinks/ui",
   "version": "1.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -24,7 +24,7 @@
     "qrcode.react": "^4.2.0"
   },
   "devDependencies": {
-    "@momoflow/config": "workspace:*",
+    "@momolinks/config": "workspace:*",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "react": "^19.0.0",

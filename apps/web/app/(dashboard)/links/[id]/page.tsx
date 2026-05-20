@@ -12,8 +12,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { CopyButton, PageHeader, QRCodeBlock, StatCard } from "@momoflow/ui";
-import type { LinkStats } from "@momoflow/lib";
+import { CopyButton, PageHeader, QRCodeBlock, StatCard } from "@momolinks/ui";
+import type { LinkStats } from "@momolinks/lib";
 import { fetcher } from "@/lib/swr";
 import Link from "next/link";
 

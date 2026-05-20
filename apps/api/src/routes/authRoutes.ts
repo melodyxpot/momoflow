@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { loginSchema, registerSchema } from "@momoflow/lib";
+import { loginSchema, registerSchema } from "@momolinks/lib";
 import { validateBody } from "../middleware/validate";
 import { authLimiter } from "../middleware/rateLimit";
 import { asyncHandler } from "../utils/asyncHandler";

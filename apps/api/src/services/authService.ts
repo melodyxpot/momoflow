@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import type { LoginInput, RegisterInput, AuthUser } from "@momoflow/lib";
+import type { LoginInput, RegisterInput, AuthUser } from "@momolinks/lib";
 import { UserModel } from "../models/User";
 import { HttpError } from "../utils/HttpError";
 import { signToken } from "../middleware/auth";

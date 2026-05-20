@@ -1,7 +1,7 @@
 version: "3.9"
 
 # ─────────────────────────────────────────────────────────────────────────────
-# MomoFlow — single-server production stack
+# MomoLinks — single-server production stack
 #
 # Services:
 #   mongo    → database (internal only, no host port exposed)
@@ -12,8 +12,8 @@ version: "3.9"
 #   certbot  → Let's Encrypt renewal sidecar
 #
 # Public hostnames (configure DNS A-records to this server's IP):
-#   momolink.io      →  short-link redirects + /api/*   (proxied to api)
-#   app.momolink.io  →  dashboard UI                    (proxied to web)
+#   momolinks.io      →  short-link redirects + /api/*   (proxied to api)
+#   app.momolinks.io  →  dashboard UI                    (proxied to web)
 # ─────────────────────────────────────────────────────────────────────────────
 
 services:
@@ -43,7 +43,7 @@ services:
       # regardless of what's in .env (which is also used by host-side tools).
       NODE_ENV: production
       PORT: 4000
-      MONGODB_URI: mongodb://mongo:27017/momoflow
+      MONGODB_URI: mongodb://mongo:27017/momolinks
       REDIS_URL: redis://redis:6379
     depends_on:
       - mongo
@@ -57,8 +57,8 @@ services:
       args:
         # NEXT_PUBLIC_* must be available at BUILD time to be baked into
         # the client bundle. We forward them from the root .env file.
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://momolink.io}
-        NEXT_PUBLIC_SHORT_DOMAIN: ${NEXT_PUBLIC_SHORT_DOMAIN:-https://momolink.io}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://momolinks.io}
+        NEXT_PUBLIC_SHORT_DOMAIN: ${NEXT_PUBLIC_SHORT_DOMAIN:-https://momolinks.io}
     restart: unless-stopped
     env_file: .env
     depends_on:

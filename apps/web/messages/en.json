@@ -1,0 +1,54 @@
+{
+  "common": {
+    "brand": "MomoLinks",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signUp": "Get started",
+    "create": "Create",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "loading": "Loading…",
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "landing": {
+    "badge": "Production-ready · Redis-cached redirects",
+    "headline1": "Smart short links that",
+    "headline2": "route, track, and convert",
+    "subtitle": "Create branded short links, route by geo / device / A-B variant, protect with passwords, and watch clicks roll in — all behind a sub-50ms redirect engine.",
+    "ctaStart": "Start for free",
+    "ctaSignIn": "Sign in",
+    "feature1Title": "Lightning redirects",
+    "feature1Body": "Redis-backed lookup with negative caching keeps the hot path under 50ms.",
+    "feature2Title": "Smart routing",
+    "feature2Body": "Geo, device, A-B weighted variants, expiration, and password-protected links.",
+    "feature3Title": "Real-time analytics",
+    "feature3Body": "Per-link stats by country, device, referrer and day — written async, never blocking."
+  },
+  "nav": {
+    "overview": "Overview",
+    "links": "Links",
+    "create": "Create"
+  },
+  "auth": {
+    "loginTitle": "Sign in",
+    "loginSubtitle": "Welcome back to MomoLinks.",
+    "email": "Email",
+    "password": "Password",
+    "signInButton": "Sign in",
+    "newHere": "New here?",
+    "createAccount": "Create an account",
+    "registerTitle": "Create your account",
+    "registerSubtitle": "Get started with MomoLinks in seconds.",
+    "name": "Name",
+    "registerButton": "Create account",
+    "passwordHint": "Minimum 8 characters",
+    "welcome": "Welcome, {name}!",
+    "haveAccount": "Already have an account?",
+    "signInLink": "Sign in",
+    "welcomeBack": "Welcome back, {name}!",
+    "loginFailed": "Sign in failed. Please try again",
+    "registerFailed": "Sign up failed. Please try again"
+  }
+}

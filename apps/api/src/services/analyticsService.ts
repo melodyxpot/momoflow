@@ -1,6 +1,6 @@
 import geoip from "geoip-lite";
 import { Types } from "mongoose";
-import { hashIp, parseUserAgent, type LinkStats } from "@momoflow/lib";
+import { hashIp, parseUserAgent, type LinkStats } from "@momolinks/lib";
 import { AnalyticsModel } from "../models/Analytics";
 import { LinkModel } from "../models/Link";
 import { logger } from "../config/logger";

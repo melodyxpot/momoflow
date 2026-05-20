@@ -21,7 +21,7 @@ ENV NEXT_PUBLIC_SHORT_DOMAIN=${NEXT_PUBLIC_SHORT_DOMAIN}
 
 COPY --from=deps /app /app
 COPY apps/web ./apps/web
-RUN pnpm --filter @momoflow/web build
+RUN pnpm --filter @momolinks/web build
 
 # --- runtime ---
 FROM node:20-alpine AS runtime
@@ -30,4 +30,4 @@ ENV NODE_ENV=production
 RUN corepack enable
 COPY --from=build /app .
 EXPOSE 3000
-CMD ["pnpm", "--filter", "@momoflow/web", "start"]
+CMD ["pnpm", "--filter", "@momolinks/web", "start"]

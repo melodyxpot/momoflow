@@ -3,7 +3,7 @@ import { sign, verify } from "jsonwebtoken";
 import type { Secret } from "jsonwebtoken";
 import { env } from "../config/env";
 import { HttpError } from "../utils/HttpError";
-import type { UserRole } from "@momoflow/lib";
+import type { UserRole } from "@momolinks/lib";
 
 export interface JwtPayload {
   sub: string;
